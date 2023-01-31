@@ -1,6 +1,6 @@
 /*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
 
-/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+/* Remove all the styles of the "User-Agent-StyleSheet", except for the 'display' property */
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
   all: unset;
   display: revert;
@@ -35,4 +35,14 @@ table {
 /* Revert the 'white-space' property for textarea elements on Safari */
 textarea {
   white-space: revert;
+}
+
+/* MY CODE */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+  transition: 0.2s;
+  scroll-behavior: smooth;
 }
