@@ -1,10 +1,10 @@
 import * as S from './style';
 
-const NotFound = () => {
+const NotFound = ({ desc }) => {
   return (
     <S.Div>
       <S.H2>Sorry,</S.H2>
-      <p>That page cannot be found</p>
+      <p>{desc}</p>
       <S.StyledLink to="/">Homepage</S.StyledLink>
     </S.Div>
   );

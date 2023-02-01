@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Content = styled.div`
   display: grid;
@@ -48,13 +49,12 @@ export const Div = styled.div`
   justify-content: space-between;
 `;
 
-export const Button = styled.button`
+const sharedStyle = css`
   border-radius: 10px;
   padding: 5px 10px;
   font-weight: bold;
   color: white;
   cursor: pointer;
-  background: ${(props) => props.background};
 
   &:hover {
     background: #ccc;
@@ -62,4 +62,14 @@ export const Button = styled.button`
   &:active {
     background: #999;
   }
+`;
+
+export const Button = styled.button`
+  ${sharedStyle}
+  background: #FD151B;
+`;
+
+export const StyledLink = styled(Link)`
+  ${sharedStyle}
+  background: #16DB93;
 `;
