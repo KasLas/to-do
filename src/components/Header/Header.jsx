@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
-const Header = ({ handleValue }) => {
-  const [searchInput, setSearchInput] = useState('');
-  useEffect(() => {
-    handleValue(searchInput);
-  });
+const Header = ({ handleInputChange, value }) => {
   const navigate = useNavigate();
 
   return (
@@ -20,8 +15,8 @@ const Header = ({ handleValue }) => {
           type="search"
           placeholder="🔍︎ Search"
           onClick={() => navigate('/')}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          value={value}
+          onChange={(e) => handleInputChange(e.target.value)}
         />
       </S.Nav>
     </header>
