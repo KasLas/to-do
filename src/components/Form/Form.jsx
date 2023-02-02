@@ -5,15 +5,20 @@ import NotFound from '../NotFound/NotFound';
 
 const Form = ({ title }) => {
   const { id } = useParams();
+  const selectedItem =
+    localStorage.getItem('tasks') &&
+    JSON.parse(localStorage.getItem('tasks')).filter(
+      (task, index) => index === Number(id)
+    )[0];
 
-  const editTask = Boolean(localStorage.getItem(id));
+  const editTask = Boolean(selectedItem);
   const fakeTask = !editTask && Boolean(id);
 
   const {
     name: nameTemp,
     description: descriptionTemp,
     date,
-  } = editTask && JSON.parse(localStorage.getItem(id));
+  } = editTask && selectedItem;
 
   const [name, setName] = useState(editTask ? nameTemp : '');
   const [description, setDescription] = useState(
@@ -24,30 +29,26 @@ const Form = ({ title }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.type === 'submit') {
-      const task = JSON.stringify({
+      let task = {
         name: e.target[0].value,
         description: e.target[1].value,
         date: e.target[2].value,
-      });
+      };
+      let taskArr = JSON.parse(localStorage.getItem('tasks'));
 
-      if (editTask) {
-        localStorage.setItem(id, task);
+      if (taskArr) {
+        if (editTask) {
+          taskArr = taskArr.map((item, index) =>
+            index === Number(id) ? task : item
+          );
+        } else {
+          taskArr.push(task);
+        }
       } else {
-        let id;
-
-        !localStorage.length
-          ? (id = 0)
-          : (id =
-              Number(
-                Object.keys(localStorage)
-                  .sort(function (a, b) {
-                    return a - b;
-                  })
-                  .pop()
-              ) + 1);
-
-        localStorage.setItem(id, task);
+        taskArr = [task];
       }
+
+      localStorage.setItem('tasks', JSON.stringify(taskArr));
     }
     navigate('/');
   };
@@ -67,7 +68,9 @@ const Form = ({ title }) => {
 
   return (
     <div>
-      {fakeTask && <NotFound desc="That task cannot be found" />}
+      {fakeTask && (
+        <NotFound desc="That task cannot be found" displayButton={true} />
+      )}
       <S.Content>
         {!fakeTask && (
           <div>
