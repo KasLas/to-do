@@ -5,6 +5,11 @@ import { useEffect, useState } from 'react';
 const TaskList = ({ list }) => {
   return (
     <>
+      <>
+        {list && list.length === 0 && (
+          <NotFound desc="That search cannot be found" displayButton={false} />
+        )}
+      </>
       {list &&
         list.map((task, index) => (
           <S.Item key={index}>
@@ -39,9 +44,6 @@ const Home = ({ value }) => {
 
   return (
     <S.Content>
-      {value && value.length !== 0 && (
-        <NotFound desc="That search cannot be found" displayButton={false} />
-      )}
       <>
         {value && (
           <TaskList
