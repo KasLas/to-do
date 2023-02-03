@@ -16,7 +16,7 @@ const Header = ({ handleInputChange, value }) => {
           placeholder="🔍︎ Search"
           onClick={() => navigate('/')}
           value={value}
-          onChange={(e) => handleInputChange(e.target.value)}
+          onChange={handleInputChange}
         />
       </S.Nav>
     </header>

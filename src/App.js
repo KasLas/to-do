@@ -6,48 +6,17 @@ import Form from './components/Form/Form';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
   const [value, setValue] = useState('');
 
-  useEffect(() => {
-    const filteredTasks = tasks.filter((task) => {
-      if (task.name.includes(value)) {
-        return task;
-      }
-    });
-
-    if (filteredTasks) {
-      setFilteredTasks(filteredTasks);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  const getTasks = () => {
-    return JSON.parse(localStorage.getItem('tasks'));
-  };
-
-  useEffect(() => {
-    setTasks(getTasks());
-  }, []);
-
-  const handleInputChange = (input) => {
-    setValue(input);
+  const handleSearchInputChange = (e) => {
+    setValue(e.target.value);
   };
 
   return (
     <Router>
-      <Header handleInputChange={handleInputChange} value={value} />
+      <Header handleInputChange={handleSearchInputChange} value={value} />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              allTasks={value.length > 0 ? filteredTasks : tasks}
-              searchValue={value}
-            />
-          }
-        />
+        <Route path="/" element={<Home value={value} />} />
         <Route path="/create" element={<Form title="Create a New Task" />} />
         <Route path="/edit/:id" element={<Form title="Edit the Task" />} />
         <Route
